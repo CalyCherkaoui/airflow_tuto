@@ -36,6 +36,7 @@ def _get_pictures():
                 response = requests.get(image_url)
                 image_filename = image_url.split("/")[-1]
                 target_file = f"/tmp/images/{image_filename}"
+                # Extracts image URLs for every rocket launch and downloads the images to /tmp/images
                 with open(target_file, "wb") as f:
                     f.write(response.content)
                 print(f"Downloaded {image_url} to {target_file}")
@@ -62,7 +63,9 @@ download_launches >> get_pictures >> notify
 
 # __________________________________________________________________________
 # In Python, the rshift operator (>>) is used to set dependencies between tasks. 
-# In the DAG, the download_launches task is set to run before the get_pictures task,
-# which is set to run before the notify task. This means that the download_launches task will run first,
-# followed by the get_pictures task, and finally the notify task.
+#
+# There is a difference, though. Tasks in Airflow manage the execution of an operator;
+# they can be thought of as a small wrapper or manager around an operator that
+# ensures the operator executes correctly. The user can focus on the work to be done
+# by using operators, while Airflow ensures correct execution of the work via tasks
 # __________________________________________________________________________
