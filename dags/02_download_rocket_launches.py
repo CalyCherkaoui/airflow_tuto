@@ -22,6 +22,7 @@ download_launches = BashOperator(
     dag=dag,
 )
 
+# PYTHON function that downloads all images from the launches.json file
 def _get_pictures():
     # Ensure directory exists
     pathlib.Path("/tmp/images").mkdir(parents=True, exist_ok=True)
@@ -43,9 +44,11 @@ def _get_pictures():
             except requests_exceptions.ConnectionError:
                 print(f"Could not connect to {image_url}.")
 
-
+# PYTHON operator that downloads all images from the launches.json file
 get_pictures = PythonOperator(
-    task_id="get_pictures", python_callable=_get_pictures, dag=dag
+    task_id="get_pictures",
+    python_callable=_get_pictures,
+    dag=dag,
 )
 
 notify = BashOperator(
@@ -54,4 +57,12 @@ notify = BashOperator(
     dag=dag,
 )
 
+# Set dependencies between all tasks
 download_launches >> get_pictures >> notify
+
+# __________________________________________________________________________
+# In Python, the rshift operator (>>) is used to set dependencies between tasks. 
+# In the DAG, the download_launches task is set to run before the get_pictures task,
+# which is set to run before the notify task. This means that the download_launches task will run first,
+# followed by the get_pictures task, and finally the notify task.
+# __________________________________________________________________________
