@@ -1,3 +1,7 @@
+# AIRFLOW
+
+## Anatomy of Airflow DAG
+
 There is a difference, though. Tasks in Airflow manage the execution of an operator;
 they can be thought of as a small wrapper or manager around an operator that
 ensures the operator executes correctly. The user can focus on the work to be done
@@ -62,3 +66,6 @@ work.
  The Airflow UI offers a graph view for viewing the DAG structure and tree view
 for viewing DAG runs over time.
  Failed tasks can be restarted anywhere in the DAG.
+
+## Scheduling in Airflow
+
