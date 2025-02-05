@@ -69,3 +69,17 @@ for viewing DAG runs over time.
 
 ## Scheduling in Airflow
 
+
+## Dependencies between tasks
+
+
+### Linear dependencies
+ single linear chain of tasks
+ ex:
+ download_launches = BashOperator(...) >> get_pictures = PythonOperator(...) >> notify = BashOperator(...)
+
+ ![alt text](image-1.png)
+
+### Fan-in/-out dependencies
+
+### Branching within tasks
